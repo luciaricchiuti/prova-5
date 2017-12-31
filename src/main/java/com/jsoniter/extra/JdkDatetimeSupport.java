@@ -82,14 +82,14 @@ public class JdkDatetimeSupport {
 	/**
 	 * enable.
 	 * 
-	 * @param pattern
+	 * @param patterns
 	 */
-	public static void enable(String pattern) {
+	public static void enable(String patterns) {
 		synchronized (JdkDatetimeSupport.class) {
 			if (JdkDatetimeSupport.pattern != "") {
 				throw new JsonException("JdkDatetimeSupport.enable can only be called once");
 			}
-			JdkDatetimeSupport.pattern = pattern;
+			JdkDatetimeSupport.pattern = patterns;
 			JsoniterSpi.registerTypeEncoder(Date.class, new com.jsoniter.spi.Encoder.ReflectionEncoder() {
 				@Override
 				public void encode(Object obj, JsonStream stream) throws IOException {

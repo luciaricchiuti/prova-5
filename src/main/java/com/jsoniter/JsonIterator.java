@@ -110,17 +110,17 @@ public class JsonIterator implements Closeable {
 		this(null, new byte[0], 0, 0);
 	}
 
-	public static JsonIterator parse(InputStream in, int bufSize) {
+	public static JsonIterator parse(InputStream inn, int bufSizee) {
 		enableStreamingSupport();
-		return new JsonIterator(in, new byte[bufSize], 0, 0);
+		return new JsonIterator(inn, new byte[bufSizee], 0, 0);
 	}
 
-	public static JsonIterator parse(byte[] buf) {
-		return new JsonIterator(null, buf, 0, buf.length);
+	public static JsonIterator parse(byte[] buff) {
+		return new JsonIterator(null, buff, 0, buff.length);
 	}
 
-	public static JsonIterator parse(byte[] buf, int head, int tail) {
-		return new JsonIterator(null, buf, head, tail);
+	public static JsonIterator parse(byte[] buff, int head1, int tail1) {
+		return new JsonIterator(null, buff, head1, tail1);
 	}
 
 	public static JsonIterator parse(String str) {
@@ -131,16 +131,16 @@ public class JsonIterator implements Closeable {
 		return new JsonIterator(null, slice.data(), slice.head(), slice.tail());
 	}
 
-	public final void reset(byte[] buf) {
-		this.buf = buf;
+	public final void reset(byte[] buff) {
+		this.buf = buff;
 		this.head = 0;
-		this.tail = buf.length;
+		this.tail = buff.length;
 	}
 
-	public final void reset(byte[] buf, int head, int tail) {
-		this.buf = buf;
-		this.head = head;
-		this.tail = tail;
+	public final void reset(byte[] buff, int head1, int tail1) {
+		this.buf = buff;
+		this.head = head1;
+		this.tail = tail1;
 	}
 
 	public final void reset(Slice value) {
@@ -149,9 +149,9 @@ public class JsonIterator implements Closeable {
 		this.tail = value.tail();
 	}
 
-	public final void reset(InputStream in) {
+	public final void reset(InputStream inn) {
 		JsonIterator.enableStreamingSupport();
-		this.in = in;
+		this.in = inn;
 		this.head = 0;
 		this.tail = 0;
 	}
@@ -393,7 +393,7 @@ public class JsonIterator implements Closeable {
 	 * try to bind to existing object, returned object might not the same
 	 * instance
 	 *
-	 * @param existingObject
+	 * @param existingObjects
 	 *            the object instance to reuse
 	 * @param <T>
 	 *            object type
@@ -401,12 +401,12 @@ public class JsonIterator implements Closeable {
 	 * @throws IOException
 	 *             if I/O went wrong
 	 */
-	public final <T> T read(T existingObject) throws IOException {
+	public final <T> T read(T existingObjects) throws IOException {
 		Object o = null;
 		T typeT = null;
 		try {
-			this.existingObject = existingObject;
-			Class<?> clazz = existingObject.getClass();
+			this.existingObject = existingObjects;
+			Class<?> clazz = existingObjects.getClass();
 			String cacheKey = currentConfig().getDecoderCacheKey(clazz);
 			o = Codegen.getDecoder(cacheKey, clazz).decode(this);
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -428,9 +428,9 @@ public class JsonIterator implements Closeable {
 	 * try to bind to existing object, returned object might not the same
 	 * instance
 	 *
-	 * @param typeLiteral
+	 * @param typeLiteral1
 	 *            the type object
-	 * @param existingObject
+	 * @param existingObject1
 	 *            the object instance to reuse
 	 * @param <T>
 	 *            object type
@@ -438,13 +438,13 @@ public class JsonIterator implements Closeable {
 	 * @throws IOException
 	 *             if I/O went wrong
 	 */
-	public final <T> T read(TypeLiteral<T> typeLiteral, T existingObject) throws IOException {
+	public final <T> T read(TypeLiteral<T> typeLiteral1, T existingObject1) throws IOException {
 		T typeT = null;
 		Object o = null;
 		try {
-			this.existingObject = existingObject;
-			String cacheKey = currentConfig().getDecoderCacheKey(typeLiteral.getType());
-			o = Codegen.getDecoder(cacheKey, typeLiteral.getType()).decode(this);
+			this.existingObject = existingObject1;
+			String cacheKey = currentConfig().getDecoderCacheKey(typeLiteral1.getType());
+			o = Codegen.getDecoder(cacheKey, typeLiteral1.getType()).decode(this);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw reportError("read", "premature end");
 		} finally {

@@ -188,8 +188,8 @@ public class GsonCompatibilityMode extends Config {
 			return this;
 		}
 
-		public Builder setFieldNamingStrategy(FieldNamingStrategy fieldNamingStrategy) {
-			this.fieldNamingStrategy = fieldNamingStrategy;
+		public Builder setFieldNamingStrategy(FieldNamingStrategy fieldNameStrategy) {
+			this.fieldNamingStrategy = fieldNameStrategy;
 			return this;
 		}
 
@@ -208,8 +208,8 @@ public class GsonCompatibilityMode extends Config {
 			return this;
 		}
 
-		public Builder setVersion(double version) {
-			this.version = version;
+		public Builder setVersion(double versions) {
+			this.version = versions;
 			return this;
 		}
 

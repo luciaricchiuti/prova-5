@@ -89,53 +89,53 @@ class CodegenResult {
 
 	public String generateWrapperCode(Class clazz) {
 		flushBuffer();
-		StringBuilder lines = new StringBuilder(SBSIZE);
-		lines.append(
+		StringBuilder linea = new StringBuilder(SBSIZE);
+		linea.append(
 				"public void encode(Object obj, com.jsoniter.output.JsonStream stream) throws java.io.IOException {\n");
-		lines.append("if (obj == null) { stream.writeNull(); return; }\n");
+		linea.append("if (obj == null) { stream.writeNull(); return; }\n");
 		if (prelude != null) {
-			append(lines, CodegenResult.bufferToWriteOp(prelude));
+			append(linea, CodegenResult.bufferToWriteOp(prelude));
 		}
-		lines.append(String.format("encode_((%s)obj, stream);", clazz.getCanonicalName()) + "\n");
+		linea.append(String.format("encode_((%s)obj, stream);", clazz.getCanonicalName()) + "\n");
 		if (epilogue != null) {
-			lines.append(CodegenResult.bufferToWriteOp(epilogue) + "\n");
+			linea.append(CodegenResult.bufferToWriteOp(epilogue) + "\n");
 		}
-		lines.append("}\n");
-		return lines.toString();
+		linea.append("}\n");
+		return linea.toString();
 	}
 
-	private static void append(StringBuilder lines, String line) {
-		lines.append(line);
-		lines.append('\n');
+	private static void append(StringBuilder linea, String linea1) {
+		linea.append(linea1);
+		linea.append('\n');
 	}
 
-	public static String bufferToWriteOp(String buffered) {
-		if (buffered == null) {
+	public static String bufferToWriteOp(String buff) {
+		if (buff == null) {
 			return "";
 		}
-		if (buffered.length() == 1) {
-			return String.format("stream.write((byte)'%s');", escape(buffered.charAt(0)));
-		} else if (buffered.length() == 2) {
-			return String.format("stream.write((byte)'%s', (byte)'%s');", escape(buffered.charAt(0)),
-					escape(buffered.charAt(1)));
-		} else if (buffered.length() == 3) {
-			return String.format("stream.write((byte)'%s', (byte)'%s', (byte)'%s');", escape(buffered.charAt(0)),
-					escape(buffered.charAt(1)), escape(buffered.charAt(2)));
-		} else if (buffered.length() == 4) {
+		if (buff.length() == 1) {
+			return String.format("stream.write((byte)'%s');", escape(buff.charAt(0)));
+		} else if (buff.length() == 2) {
+			return String.format("stream.write((byte)'%s', (byte)'%s');", escape(buff.charAt(0)),
+					escape(buff.charAt(1)));
+		} else if (buff.length() == 3) {
+			return String.format("stream.write((byte)'%s', (byte)'%s', (byte)'%s');", escape(buff.charAt(0)),
+					escape(buff.charAt(1)), escape(buff.charAt(2)));
+		} else if (buff.length() == 4) {
 			return String.format("stream.write((byte)'%s', (byte)'%s', (byte)'%s', (byte)'%s');",
-					escape(buffered.charAt(0)), escape(buffered.charAt(1)), escape(buffered.charAt(2)),
-					escape(buffered.charAt(3)));
+					escape(buff.charAt(0)), escape(buff.charAt(1)), escape(buff.charAt(2)),
+					escape(buff.charAt(3)));
 		} else {
-			StringBuilder escaped = new StringBuilder(SBSIZE);
-			int size = buffered.length();
-			for (int i = 0; i < size; i++) {
-				char c = buffered.charAt(i);
-				if (c == '"') {
-					escaped.append('\\');
+			StringBuilder escape = new StringBuilder(SBSIZE);
+			int size1 = buff.length();
+			for (int i = 0; i < size1; i++) {
+				char cBuff = buff.charAt(i);
+				if (cBuff == '"') {
+					escape.append('\\');
 				}
-				escaped.append(c);
+				escape.append(cBuff);
 			}
-			return String.format("stream.writeRaw(\"%s\", %s);", escaped.toString(), buffered.length());
+			return String.format("stream.writeRaw(\"%s\", %s);", escape.toString(), buff.length());
 		}
 	}
 

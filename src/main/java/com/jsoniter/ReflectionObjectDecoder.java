@@ -72,21 +72,21 @@ class ReflectionObjectDecoder {
 
 	private final void init(ClassInfo classInfo) {
 		Class clazz = classInfo.clazz;
-		ClassDescriptor desc = ClassDescriptor.getDecodingClassDescriptor(classInfo, true);
-		for (Binding param : desc.ctor.parameters) {
+		ClassDescriptor descr = ClassDescriptor.getDecodingClassDescriptor(classInfo, true);
+		for (Binding param : descr.ctor.parameters) {
 			addBinding(classInfo, param);
 		}
-		this.desc = desc;
-		if (desc.ctor.objectFactory == null && desc.ctor.ctor == null && desc.ctor.staticFactory == null) {
-			throw new JsonException("no constructor for: " + desc.clazz);
+		this.desc = descr;
+		if (descr.ctor.objectFactory == null && descr.ctor.ctor == null && descr.ctor.staticFactory == null) {
+			throw new JsonException("no constructor for: " + descr.clazz);
 		}
-		for (Binding field : desc.fields) {
+		for (Binding field : descr.fields) {
 			addBinding(classInfo, field);
 		}
-		for (Binding setter : desc.setters) {
+		for (Binding setter : descr.setters) {
 			addBinding(classInfo, setter);
 		}
-		for (WrapperDescriptor setter : desc.bindingTypeWrappers) {
+		for (WrapperDescriptor setter : descr.bindingTypeWrappers) {
 			for (Binding param : setter.parameters) {
 				addBinding(classInfo, param);
 			}
@@ -95,7 +95,7 @@ class ReflectionObjectDecoder {
 			throw new JsonException("too many required properties to track");
 		}
 		expectedTracker = Long.MAX_VALUE >> (63 - requiredIdx);
-		if (!desc.ctor.parameters.isEmpty() || !desc.bindingTypeWrappers.isEmpty()) {
+		if (!descr.ctor.parameters.isEmpty() || !descr.bindingTypeWrappers.isEmpty()) {
 			tempCount = tempIdx;
 			tempCacheKey = "temp@" + clazz.getCanonicalName();
 			ctorArgsCacheKey = "ctor@" + clazz.getCanonicalName();
