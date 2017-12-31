@@ -1,10 +1,10 @@
 package com.jsoniter.fuzzy;
 
+import java.io.IOException;
+
 import com.jsoniter.CodegenAccess;
 import com.jsoniter.JsonIterator;
-import com.jsoniter.spi.Decoder;
 
-import java.io.IOException;
 
 /**
  * Public Class MaybeStringDoubleDecoder.
@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author MaxiBon
  *
  */
-public class MaybeStringDoubleDecoder extends Decoder.DoubleDecoder {
+public class MaybeStringDoubleDecoder extends com.jsoniter.spi.Decoder.DoubleDecoder {
 
     @Override
     /**
