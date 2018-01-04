@@ -76,6 +76,9 @@ public class JsonIterator implements Closeable {
 	private final static ReadArrayCallback fillArray = new ReadArrayCallback() {
 		@Override
 		public boolean handle(JsonIterator iter, Object attachment) throws IOException {
+			/**
+	         * @throws IOException
+	         */
 			if (attachment instanceof List) {
 				List list = (List) attachment;
 				list.add(iter.read());
@@ -248,7 +251,6 @@ public class JsonIterator implements Closeable {
 	}
 
 	public final short readShort() throws IOException {
-		
 		int v = readInt();
 		if (Short.MIN_VALUE <= v && v <= Short.MAX_VALUE) {
 			return (short) v;
@@ -266,9 +268,6 @@ public class JsonIterator implements Closeable {
 	}
 
 	public final boolean readArray() throws IOException {
-		/**
-         * @throws IOException
-         */
 		return IterImplArray.readArray(this);
 	}
 
@@ -327,6 +326,9 @@ public class JsonIterator implements Closeable {
 		 *
 		 */
 		boolean handle(JsonIterator iter, String field, Object attachment) throws IOException;
+		/**
+         * @throws IOException
+         */
 	}
 
 	public final void readObjectCB(ReadObjectCallback cb, Object attachment) throws IOException {

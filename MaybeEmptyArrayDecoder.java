@@ -24,6 +24,9 @@ public class MaybeEmptyArrayDecoder implements Decoder {
          */
         if (iter.whatIsNext() == ValueType.ARRAY) {
             if (iter.readArray()) {
+            	/**
+                 * @throws iter.reportError
+                 */
                 throw iter.reportError("MaybeEmptyArrayDecoder", "this field is object. if input is array, it can only be empty");
             } else {
                 // empty array parsed as null

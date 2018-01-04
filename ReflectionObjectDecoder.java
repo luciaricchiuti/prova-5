@@ -175,7 +175,7 @@ class ReflectionObjectDecoder {
 		 * decode
 		 */
 		public Object decode(JsonIterator iter) throws IOException {
-			/**
+			 /**
 	         * @throws IOException
 	         */
 			try {
@@ -258,7 +258,7 @@ class ReflectionObjectDecoder {
 		 * decode
 		 */
 		public Object decode(JsonIterator iter) throws IOException {
-			/**
+			 /**
 	         * @throws IOException
 	         */
 			try {
@@ -356,6 +356,9 @@ class ReflectionObjectDecoder {
 		 * decode
 		 */
 		public Object decode(JsonIterator iter) throws IOException {
+			 /**
+	         * @throws IOException
+	         */
 			try {
 				return decode_(iter);
 			} catch (RuntimeException e) {
@@ -366,9 +369,6 @@ class ReflectionObjectDecoder {
 		}
 
 		private Object decode_(JsonIterator iter) throws Exception {
-			/**
-	         * @throws IOException
-	         */
 			if (iter.readNull()) {
 				CodegenAccess.resetExistingObject(iter);
 				return null;

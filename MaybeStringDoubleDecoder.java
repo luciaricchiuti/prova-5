@@ -30,6 +30,9 @@ public class MaybeStringDoubleDecoder extends com.jsoniter.spi.Decoder.DoubleDec
         double val = iter.readDouble();
         c = CodegenAccess.nextToken(iter);
         if (c != '"') {
+        	/**
+             * @throws iter.reportError
+             */
             throw iter.reportError("StringDoubleDecoder", "expect \", but found: " + Byte.toString(c).charAt(0));
         }
         return val;

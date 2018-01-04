@@ -85,11 +85,12 @@ public class JdkDatetimeSupport {
 	 * @param patterns
 	 */
 	public static void enable(String patterns) {
+		 /**
+         * @throws JsonException
+         */
 		synchronized (JdkDatetimeSupport.class) {
 			if (JdkDatetimeSupport.pattern != "") {
-				/**
-		         * @throws JsonException
-		         */
+				
 				throw new JsonException("JdkDatetimeSupport.enable can only be called once");
 			}
 			JdkDatetimeSupport.pattern = patterns;
