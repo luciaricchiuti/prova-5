@@ -10,10 +10,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -32,8 +29,8 @@ import com.jsoniter.output.JsonStream;
 import com.jsoniter.spi.Binding;
 import com.jsoniter.spi.ClassDescriptor;
 import com.jsoniter.spi.Config;
-import com.jsoniter.spi.Decoder;
-import com.jsoniter.spi.Encoder;
+
+
 import com.jsoniter.spi.JsonException;
 import com.jsoniter.spi.OmitValue;
 
@@ -254,7 +251,7 @@ public class GsonCompatibilityMode extends Config {
 				return false;
 			}
 
-			if (!super.equals(o)) {
+			if (super.equals(o) ==false ) {
 				return false;
 			}
 
@@ -280,7 +277,7 @@ public class GsonCompatibilityMode extends Config {
 				return false;
 			}
 
-			if (version != null ? !version.equals(builder.version) : builder.version != null) {
+			if (version != null ? (version.equals(builder.version)==false) : builder.version != null) {
 				return false;
 			}
 
@@ -343,9 +340,9 @@ public class GsonCompatibilityMode extends Config {
 	}
 
 	@Override
-	public Encoder createEncoder(String cacheKey, Type type) {
+	public com.jsoniter.spi.Encoder createEncoder(String cacheKey, Type type) {
 		if (Date.class == type) {
-			return new Encoder() {
+			return new com.jsoniter.spi.Encoder() {
 				@Override
 				public void encode(Object obj, JsonStream stream) throws IOException {
 					DateFormat dateFormat = builder().dateFormat.get();
@@ -359,7 +356,7 @@ public class GsonCompatibilityMode extends Config {
 			} else {
 				replacements = HTML_SAFE_REPLACEMENT_CHARS;
 			}
-			return new Encoder() {
+			return new com.jsoniter.spi.Encoder() {
 				@Override
 				public void encode(Object obj, JsonStream stream) throws IOException {
 					String value = null;
@@ -373,18 +370,23 @@ public class GsonCompatibilityMode extends Config {
 					while (i < n) {
 						int c = value.charAt(i);
 						String replacement = null;
-						if (c < 128) {
+						
+						switch(c){
+						case 128:
 							replacement = replacements[c];
 							if (replacement == null) {
 								stream.write(c);
 							} else {
 								stream.writeRaw(replacement);
 							}
-						} else if (c == '\u2028') {
+							break;
+						case '\u2028':
 							stream.writeRaw("\\u2028");
-						} else if (c == '\u2029') {
+							break;
+						case '\u2029':
 							stream.writeRaw("\\u2029");
-						} else {
+							break;
+						default:
 							if (c < 0x800) { // 2-byte
 								Integer n1 = Integer
 										.valueOf(Integer
@@ -547,9 +549,9 @@ public class GsonCompatibilityMode extends Config {
 	}
 
 	@Override
-	public Decoder createDecoder(String cacheKey, Type type) {
+	public com.jsoniter.spi.Decoder createDecoder(String cacheKey, Type type) {
 		if (Date.class == type) {
-			return new Decoder() {
+			return new com.jsoniter.spi.Decoder() {
 				@Override
 				public Object decode(JsonIterator iter) throws IOException {
 					DateFormat dateFormat = builder().dateFormat.get();
@@ -562,7 +564,7 @@ public class GsonCompatibilityMode extends Config {
 				}
 			};
 		} else if (String.class == type) {
-			return new Decoder() {
+			return new com.jsoniter.spi.Decoder() {
 				@Override
 				public Object decode(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
@@ -581,22 +583,23 @@ public class GsonCompatibilityMode extends Config {
 				}
 			};
 		} else if (boolean.class == type) {
-			return new Decoder.BooleanDecoder() {
+			return new com.jsoniter.spi.Decoder.BooleanDecoder() {
 				@Override
 				public boolean decodeBoolean(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
-					if (valueType == ValueType.BOOLEAN) {
+					switch (valueType){
+					case BOOLEAN:
 						return iter.readBoolean();
-					} else if (valueType == ValueType.NULL) {
+					case NULL:
 						iter.skip();
 						return false;
-					} else {
+					default:
 						throw new JsonException("expect boolean, but found " + valueType);
 					}
 				}
 			};
 		} else if (long.class == type) {
-			return new Decoder.LongDecoder() {
+			return new com.jsoniter.spi.Decoder.LongDecoder() {
 				@Override
 				public long decodeLong(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
@@ -611,7 +614,7 @@ public class GsonCompatibilityMode extends Config {
 				}
 			};
 		} else if (int.class == type) {
-			return new Decoder.IntDecoder() {
+			return new com.jsoniter.spi.Decoder.IntDecoder() {
 				@Override
 				public int decodeInt(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
@@ -626,7 +629,7 @@ public class GsonCompatibilityMode extends Config {
 				}
 			};
 		} else if (float.class == type) {
-			return new Decoder.FloatDecoder() {
+			return new com.jsoniter.spi.Decoder.FloatDecoder() {
 				@Override
 				public float decodeFloat(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
@@ -641,7 +644,7 @@ public class GsonCompatibilityMode extends Config {
 				}
 			};
 		} else if (double.class == type) {
-			return new Decoder.DoubleDecoder() {
+			return new com.jsoniter.spi.Decoder.DoubleDecoder() {
 				@Override
 				public double decodeDouble(JsonIterator iter) throws IOException {
 					ValueType valueType = iter.whatIsNext();
@@ -741,8 +744,8 @@ public class GsonCompatibilityMode extends Config {
 			}
 
 			@Override
-			public Class<? extends Decoder> decoder() {
-				return Decoder.class;
+			public Class<? extends com.jsoniter.spi.Decoder> decoder() {
+				return com.jsoniter.spi.Decoder.class;
 			}
 
 			@Override
@@ -751,8 +754,8 @@ public class GsonCompatibilityMode extends Config {
 			}
 
 			@Override
-			public Class<? extends Encoder> encoder() {
-				return Encoder.class;
+			public Class<? extends com.jsoniter.spi.Encoder> encoder() {
+				return com.jsoniter.spi.Encoder.class;
 			}
 
 			@Override
