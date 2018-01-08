@@ -23,16 +23,32 @@ import com.jsoniter.spi.JsoniterSpi;
  * there is no official way to encode/decode datetime, this is just an option
  * for you
  */
+/**
+ * @author Asus
+ *
+ */
 public class JdkDatetimeSupport {
 
-	private static String pattern;
+	/**
+	 * pattern
+	 */
+	static String pattern;
 	// 2014-04-01 10:45
 	/**
 	 * LocalDateTime dateTime
 	 */
 	int y = 2014;
+	/**
+	 * day
+	 */
 	int d = 1;
+	/**
+	 * hour
+	 */
 	int h = 10;
+	/**
+	 * minute
+	 */
 	int m = 45;
 	LocalDateTime dateTime = LocalDateTime.of(y, Month.APRIL, d, h, m);
 	// format as basic ISO date format (20140220)
@@ -115,7 +131,7 @@ public class JdkDatetimeSupport {
 			});
 			JsoniterSpi.registerTypeDecoder(Date.class, new Decoder() {
 				@Override
-				public Object decode(JsonIterator iter) throws IOException {
+				public Date decode(JsonIterator iter) throws IOException {
 					try {
 						return get().parse(iter.readString());
 					} catch (ParseException e) {
@@ -127,7 +143,7 @@ public class JdkDatetimeSupport {
 	}
 
 	protected static DateFormat get() {
-		String pattern;
+		pattern.length();
 		return null;
 	}
 }

@@ -29,7 +29,7 @@ class FloatAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public Float object() {
 		return val;
 	}
 

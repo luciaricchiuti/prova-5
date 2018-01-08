@@ -161,7 +161,8 @@ abstract class Base64 {
 	 */
 	static int encodeToChar(byte[] sArr, char[] dArr, final int start) {
 		final int sLen = sArr.length;
-		final int[] n = { 0xff, 16, 8, 18, 0x3f, 12, 6 };
+		final int[] num1 = { 0xff, 16, 8, 18, 0x3f, 12, 6 };
+		final int[] num2 = {0x3f, 12, 6};
 		final int eLen = (sLen / 3) * 3; // Length of even 24-bits.
 		final int dLen = ((sLen - 1) / 3 + 1) << 2; // Returned character count
 
@@ -169,24 +170,24 @@ abstract class Base64 {
 		int d = start;
 		for (int s = 0; s < eLen; s++) {
 			// Copy next three bytes into lower 24 bits of int, paying attension to sign.
-			int bitwise = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[s])), Long.getLong(Integer.toString(n[0])), '&'))).intValue();
-			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(SupportBitwise.bitwise(Long.getLong(Integer.toString((bitwise) << n[1])).longValue(),Long.getLong(Integer.toString((bitwise) << n[2])).longValue(), '|'),Long.getLong(Integer.toString(bitwise)).longValue(), '|'))).intValue();
+			int bitwise = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[s])), Long.getLong(Integer.toString(num1[0])), '&'))).intValue();
+			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(SupportBitwise.bitwise(Long.getLong(Integer.toString((bitwise) << num1[1])).longValue(),Long.getLong(Integer.toString((bitwise) << num1[2])).longValue(), '|'),Long.getLong(Integer.toString(bitwise)).longValue(), '|'))).intValue();
 			// Encode the int into four chars
-			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[3])).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()];
-			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[5])).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()];
-			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[6])).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()];
-			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()];
+			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num1[3])).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()];
+			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num2[1])).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()];
+			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num2[2])).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()];
+			dArr[d++] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()];
 		}
 
 		// Pad and encode last bits if source isn't even 24 bits.
 		int left = sLen - eLen; // 0 - 2.
 		if (left > 0) {
 			// Prepare the int
-			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[eLen])).longValue(),Long.getLong(Integer.toString(n[0])).longValue(),'&'))).intValue() << 10))).longValue(),Long.getLong(Integer.toString((left == 2 ? (Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[sLen - 1])).longValue(),Long.getLong(Integer.toString(n[0])).longValue(),'&'))).intValue() << 2) : 0))).longValue(),'|'))).intValue();
+			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[eLen])).longValue(),Long.getLong(Integer.toString(num1[0])).longValue(),'&'))).intValue() << 10))).longValue(),Long.getLong(Integer.toString((left == 2 ? (Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[sLen - 1])).longValue(),Long.getLong(Integer.toString(num1[0])).longValue(),'&'))).intValue() << 2) : 0))).longValue(),'|'))).intValue();
 			// Set last four chars
 			dArr[start + dLen - 4] = CA[i >> 12];
-			dArr[start + dLen - 3] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[6])).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()];
-			dArr[start + dLen - 2] = left == 2 ? CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()] : '=';
+			dArr[start + dLen - 3] = CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num2[2])).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()];
+			dArr[start + dLen - 2] = left == 2 ? CA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)).longValue(),Long.getLong(Integer.toString(num2[0])).longValue(), '&'))).intValue()] : '=';
 			dArr[start + dLen - 1] = '=';
 		}
 		return dLen;
@@ -201,29 +202,31 @@ abstract class Base64 {
 	 */
 	static int encodeToBytes(byte[] sArr, JsonStream stream) throws IOException {
 		final int sLen = sArr.length;
-		final int[] n = { 0xff, 16, 8, 18, 0x3f, 12, 6, 10, 2 };
+		final int[] num1 = { 0xff, 16, 8};
+		final int[] num2 = {18, 0x3f, 12};
+		final int[] num3 = {6, 10, 2};
 		final int eLen = (sLen / 3) * 3; // Length of even 24-bits.
 		final int dLen = ((sLen - 1) / 3 + 1) << 2; // Returned character count
 		int s = 0;
 		// Encode even 24-bits
 		while(s < eLen) {
 			// Copy next three bytes into lower 24 bits of int, paying attension to sign.
-			int bitwise = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[s])), Long.getLong(Integer.toString(n[0])), '&'))).intValue();
+			int bitwise = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(sArr[s])), Long.getLong(Integer.toString(num1[0])), '&'))).intValue();
 			s++;
-			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(SupportBitwise.bitwise(Long.getLong(Integer.toString((bitwise) << n[1])).longValue(),Long.getLong(Integer.toString((bitwise) << n[2])).longValue(), '|'),Long.getLong(Integer.toString(bitwise)).longValue(), '|'))).intValue();
+			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(SupportBitwise.bitwise(Long.getLong(Integer.toString((bitwise) << num1[1])).longValue(),Long.getLong(Integer.toString((bitwise) << num1[2])).longValue(), '|'),Long.getLong(Integer.toString(bitwise)).longValue(), '|'))).intValue();
 			// Encode the int into four chars
-			stream.write(BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[3])),Long.getLong(Integer.toString(n[4])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[5])),Long.getLong(Integer.toString(n[4])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> n[6])),Long.getLong(Integer.toString(n[4])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)),Long.getLong(Integer.toString(n[4])), '&'))).intValue()]);
+			stream.write(BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num2[0])),Long.getLong(Integer.toString(num2[1])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num2[2])),Long.getLong(Integer.toString(num2[1])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i >>> num3[0])),Long.getLong(Integer.toString(num2[1])), '&'))).intValue()],BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(i)),Long.getLong(Integer.toString(num2[1])), '&'))).intValue()]);
 		}
 
 		// Pad and encode last bits if source isn't even 24 bits.
 		int left = sLen - eLen; // 0 - 2.
 		if (left > 0) {
 			// Prepare the int
-			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((sArr[eLen]))).longValue(),Long.getLong(Integer.toString(n[0])).longValue(),'&'))).intValue() << n[7])).longValue(),Long.getLong(Integer.toString(left == n[8] ? ((Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((sArr[sLen - 1]))).longValue(),Long.getLong(Integer.toString(n[0])).longValue(),'&'))).intValue()) << 2) : 0)).longValue(),'|'))).intValue();
+			int i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString(Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((sArr[eLen]))).longValue(),Long.getLong(Integer.toString(num1[0])).longValue(),'&'))).intValue() << num3[1])).longValue(),Long.getLong(Integer.toString(left == num3[2] ? ((Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((sArr[sLen - 1]))).longValue(),Long.getLong(Integer.toString(num1[0])).longValue(),'&'))).intValue()) << 2) : 0)).longValue(),'|'))).intValue();
 			// Set last four chars
 			Character c = '=';
 			byte ch = c.toString().getBytes().clone()[0];
-			stream.write(BA[i >> 12], BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((i >>> 6))).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()],left == n[8]? BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((i))).longValue(),Long.getLong(Integer.toString(n[4])).longValue(), '&'))).intValue()]: ch,ch);
+			stream.write(BA[i >> 12], BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((i >>> 6))).longValue(),Long.getLong(Integer.toString(num2[1])).longValue(), '&'))).intValue()],left == num3[2]? BA[Integer.getInteger(Long.toString(SupportBitwise.bitwise(Long.getLong(Integer.toString((i))).longValue(),Long.getLong(Integer.toString(num2[1])).longValue(), '&'))).intValue()]: ch,ch);
 		}
 
 		return dLen;
@@ -294,7 +297,8 @@ abstract class Base64 {
 	 * @throws IOException
 	 */
 	static long decodeLongBits(JsonIterator iter) throws IOException {
-		int[] n = { 46, 6, 12, 24, 18 };
+		final int[] n = { 46, 6, 12, 24};
+		final int n5 = 18;
 		Slice slice = iter.readStringAsSlice();
 		if (slice.len() != 11) {
 			throw iter.reportError("decodeLongBits", "must be 11 bytes for long bits encoded double");
@@ -303,7 +307,7 @@ abstract class Base64 {
 		int sIx = slice.head();
 		long i = Integer.getInteger(Long.toString(SupportBitwise.bitwise(
 				SupportBitwise.bitwise(
-						SupportBitwise.bitwise(Long.getLong(Integer.toString(IA[encoded[sIx++]] << n[4])).longValue(),
+						SupportBitwise.bitwise(Long.getLong(Integer.toString(IA[encoded[sIx++]] << n5)).longValue(),
 								Long.getLong(Integer.toString(IA[encoded[sIx++]] << n[2])).longValue(), '|'),
 						Long.getLong(Integer.toString(IA[encoded[sIx++]] << n[1])).longValue(), '|'),
 				Long.getLong(Integer.toString(IA[encoded[sIx++]])).longValue(), '|'))).intValue();

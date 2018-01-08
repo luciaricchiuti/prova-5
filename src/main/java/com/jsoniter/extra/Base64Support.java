@@ -31,7 +31,7 @@ public class Base64Support {
 			enabled = true;
 			JsoniterSpi.registerTypeDecoder(byte[].class, new Decoder() {
 				@Override
-				public Object decode(JsonIterator iter) throws IOException {
+				public byte[] decode(JsonIterator iter) throws IOException {
 					Slice slice = iter.readStringAsSlice();
 					return Base64.decodeFast(slice.data(), slice.head(), slice.tail());
 				}

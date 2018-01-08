@@ -19,7 +19,7 @@ public class MaybeEmptyArrayDecoder implements Decoder {
      * decode
      * @throws IOException
      */
-    public Object decode(JsonIterator iter) throws IOException {
+    public JsonIterator decode(JsonIterator iter) throws IOException {
         if (iter.whatIsNext() == ValueType.ARRAY) {
             if (iter.readArray()) {
                 throw iter.reportError("MaybeEmptyArrayDecoder", "this field is object. if input is array, it can only be empty");

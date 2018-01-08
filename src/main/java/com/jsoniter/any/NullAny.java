@@ -5,6 +5,10 @@ import com.jsoniter.output.JsonStream;
 
 import java.io.IOException;
 
+/**
+ * @author Maxibon
+ *
+ */
 class NullAny extends Any {
 	/**
 	 * public final static NullAny INSTANCE = new NullAny();
@@ -24,7 +28,7 @@ class NullAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public NullAny object() {
 		return null;
 	}
 

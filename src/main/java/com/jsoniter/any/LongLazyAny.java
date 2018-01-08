@@ -14,7 +14,13 @@ import java.io.IOException;
  */
 class LongLazyAny extends LazyAny {
 
-	 boolean isCached;
+	/**
+	 * boole
+	 */
+	boolean isCached;
+	/**
+	 * long
+	 */
 	private long cache;
 
 	/**
@@ -34,7 +40,7 @@ class LongLazyAny extends LazyAny {
 	}
 
 	@Override
-	public Object object() {
+	public Long object() {
 		fillCache();
 		return cache;
 	}

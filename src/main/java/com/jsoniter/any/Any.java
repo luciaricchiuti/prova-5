@@ -34,7 +34,7 @@ public abstract class Any implements Iterable<Any> {
 	protected final static Set<String> EMPTY_KEYS = Collections.unmodifiableSet(new HashSet<String>());
 
 	/**
-	 * 
+	 * EMPTY ITERATOR
 	 */
 	protected final static Iterator<Any> EMPTY_ITERATOR = new Iterator<Any>() {
 		@Override
@@ -158,11 +158,11 @@ public abstract class Any implements Iterable<Any> {
 	 */
 	public abstract ValueType valueType();
 
-	public <T> T bindTo(T obj, Object... keys_) {
+	protected <T> T bindTo(T obj, Object... keys_) {
 		return get(keys_).bindTo(obj);
 	}
 
-	public <T> T bindTo(T obj) {
+	protected <T> T bindTo(T obj) {
 		T oggetto = null;
 		if (object() instanceof Class<?>) {
 			oggetto = obj;
@@ -170,11 +170,11 @@ public abstract class Any implements Iterable<Any> {
 		return oggetto;
 	}
 
-	public <T> T bindTo(TypeLiteral<T> typeLiteral, T obj, Object... keys_) {
+	protected <T> T bindTo(TypeLiteral<T> typeLiteral, T obj, Object... keys_) {
 		return get(keys_).bindTo(typeLiteral, obj);
 	}
 
-	public <T> T bindTo(TypeLiteral<T> typeLiteral, T obj) {
+	protected <T> T bindTo(TypeLiteral<T> typeLiteral, T obj) {
 		T oggetto = null;
 		if (object() instanceof TypeLiteral<?>) {
 			oggetto = bindTo(typeLiteral, obj);
@@ -182,7 +182,7 @@ public abstract class Any implements Iterable<Any> {
 		return oggetto;
 	}
 
-	public Object object(Object... keys_) {
+	protected Object object(Object... keys_) {
 		return get(keys_).object();
 	}
 
@@ -206,7 +206,7 @@ public abstract class Any implements Iterable<Any> {
 		return list;
 	}
 
-	public <T> T as(Class<T> clazz, Object... keys_) {
+	protected <T> T as(Class<T> clazz, Object... keys_) {
 		return get(keys_).as(clazz);
 	}
 
@@ -218,11 +218,11 @@ public abstract class Any implements Iterable<Any> {
 		return oggetto;
 	}
 
-	public <T> T as(TypeLiteral<T> typeLiteral, Object... keys_) {
+	protected <T> T as(TypeLiteral<T> typeLiteral, Object... keys_) {
 		return get(keys_).as(typeLiteral);
 	}
 
-	public <T> T as(TypeLiteral<T> typeLiteral) {
+	protected <T> T as(TypeLiteral<T> typeLiteral) {
 		T oggetto = null;
 		if (object() instanceof TypeLiteral<?>) {
 			oggetto = (T) typeLiteral;
@@ -270,7 +270,7 @@ public abstract class Any implements Iterable<Any> {
 		return 0;
 	}
 
-	public Any mustBeValid() {
+	protected Any mustBeValid() {
 		if (this instanceof NotFoundAny) {
 			throw ((NotFoundAny) this).exception;
 		} else {
@@ -291,11 +291,11 @@ public abstract class Any implements Iterable<Any> {
 		return EMPTY_ENTRIES_ITERATOR;
 	}
 
-	public Any get(int index) {
+	protected Any get(int index) {
 		return new NotFoundAny(index, object());
 	}
 
-	public Any get(Object keyElement) {
+	protected Any get(Object keyElement) {
 		return new NotFoundAny(keyElement, object());
 	}
 
@@ -356,23 +356,23 @@ public abstract class Any implements Iterable<Any> {
 		return new ObjectLazyAny(data, head, tail);
 	}
 
-	public static Any wrap(int val) {
+	protected static Any wrap(int val) {
 		return new IntAny(val);
 	}
 
-	public static Any wrap(long val) {
+	protected static Any wrap(long val) {
 		return new LongAny(val);
 	}
 
-	public static Any wrap(float val) {
+	protected static Any wrap(float val) {
 		return new FloatAny(val);
 	}
 
-	public static Any wrap(double val) {
+	protected static Any wrap(double val) {
 		return new DoubleAny(val);
 	}
 
-	public static Any wrap(boolean val) {
+	protected static Any wrap(boolean val) {
 		if (val) {
 			return TrueAny.INSTANCE;
 		} else {
@@ -380,28 +380,28 @@ public abstract class Any implements Iterable<Any> {
 		}
 	}
 
-	public static Any wrap(String val) {
+	protected static Any wrap(String val) {
 		if (val == null) {
 			return NullAny.INSTANCE;
 		}
 		return new StringAny(val);
 	}
 
-	public static <T> Any wrap(Collection<T> val) {
+	protected static <T> Any wrap(Collection<T> val) {
 		if (val == null) {
 			return NullAny.INSTANCE;
 		}
 		return new ListWrapperAny(new ArrayList(val));
 	}
 
-	public static <T> Any wrap(List<T> val) {
+	protected static <T> Any wrap(List<T> val) {
 		if (val == null) {
 			return NullAny.INSTANCE;
 		}
 		return new ListWrapperAny(val);
 	}
 
-	public static <T> Any wrap(Map<String, T> val) {
+	protected static <T> Any wrap(Map<String, T> val) {
 		if (val == null) {
 			return NullAny.INSTANCE;
 		}

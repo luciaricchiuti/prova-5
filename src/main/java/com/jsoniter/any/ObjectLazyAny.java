@@ -49,7 +49,7 @@ class ObjectLazyAny extends LazyAny {
 	}
 
 	@Override
-	public Object object() {
+	public Map<String, Any> object() {
 		fillCache();
 		return cache;
 	}

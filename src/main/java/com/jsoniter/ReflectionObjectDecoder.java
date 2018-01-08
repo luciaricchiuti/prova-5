@@ -525,7 +525,7 @@ class ReflectionObjectDecoder {
 		return value;
 	}
 
-	private Object decodeBinding(JsonIterator iter, Object obj, Binding binding)
+	private static Object decodeBinding(JsonIterator iter, Object obj, Binding binding)
 			throws IllegalArgumentException, IllegalAccessException, IOException {
 		if (binding.valueCanReuse) {
 			CodegenAccess.setExistingObject(iter, binding.field.get(obj));

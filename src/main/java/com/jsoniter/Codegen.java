@@ -98,7 +98,6 @@ class Codegen {
 	 * @param decoder
 	 * @param classInfo
 	 * @param mode
-	 * @return
 	 */
 	private static void genSupport(Decoder decoder, ClassInfo classInfo, DecodingMode mode) {
 		if (mode == DecodingMode.REFLECTION_MODE) {
@@ -111,7 +110,6 @@ class Codegen {
 	 * @param decoder
 	 * @param cacheKey
 	 * @param mode
-	 * @return
 	 */
 	private static void genSupport(Decoder decoder, String cacheKey, DecodingMode mode) {
 		if (isDoingStaticCodegen.outputDir == "") {
@@ -327,6 +325,7 @@ class Codegen {
 	 */
 	private static Type chooseImpl(Type type) {
 		Type[] typeArgs = new Type[0];
+		boolean b1 = type instanceof WildcardType;
 		Class clazz = null;
 		if (type instanceof ParameterizedType) {
 			ParameterizedType pType = (ParameterizedType) type;
@@ -334,11 +333,10 @@ class Codegen {
 				clazz = (Class) pType.getRawType();
 				typeArgs = pType.getActualTypeArguments();
 			}
-		} else if (type instanceof WildcardType) {
+		} else if (b1) {
 			type = Object.class;
-		} else if (type instanceof Class) {
-			clazz = (Class) type;
-		}
+		} 
+		clazz = (Class) type;
 		Class implClazz = JsoniterSpi.getTypeImplementation(clazz);
 		return chooseImplSupp(typeArgs, clazz, implClazz);
 	}

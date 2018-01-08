@@ -14,7 +14,13 @@ import java.io.IOException;
  */
 class DoubleLazyAny extends LazyAny {
 
-	 boolean isCached;
+	/**
+	 * boole
+	 */
+	boolean isCached;
+	/**
+	 * cache
+	 */
 	private double cache;
 
 	/**
@@ -34,7 +40,7 @@ class DoubleLazyAny extends LazyAny {
 	}
 
 	@Override
-	public Object object() {
+	public Double object() {
 		fillCache();
 		return cache;
 	}

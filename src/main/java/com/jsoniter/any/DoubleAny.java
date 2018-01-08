@@ -31,7 +31,7 @@ class DoubleAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public Double object() {
 		return val;
 	}
 

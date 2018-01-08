@@ -259,9 +259,7 @@ class CodegenImplNative {
 		} else if (fieldType instanceof ParameterizedType) {
 			ParameterizedType pType = (ParameterizedType) fieldType;
 			Class clazz = null;
-			if (pType.getRawType() instanceof Class) {
-				clazz = (Class) pType.getRawType();
-			}
+			clazz = (Class) pType.getRawType();
 			ret = clazz.getCanonicalName();
 		} else if (ist) {
 			ret = Object.class.getCanonicalName();
@@ -398,9 +396,7 @@ class CodegenImplNative {
 			decoder = JsoniterSpi.getDecoder(cK);
 			boolean b1 = valueType instanceof Class;
 			boolean b2 = (valueType instanceof WildcardType);
-			if (valueType instanceof Class) {
-				toReturn1 = limitStatements(decoder, b1, b2, (Class) valueType);
-			}
+			toReturn1 = limitStatements(decoder, b1, b2, (Class) valueType);
 			toReturn2 = limitStatements2(cK);
 		}
 		String toReturn3 = cyclomaticSupp((valueType == boolean.class), ((decoder instanceof Decoder.BooleanDecoder) == false),ERR1, String.format("com.jsoniter.CodegenAccess.readBoolean(\"%s\", iter)", cK), NULL3);

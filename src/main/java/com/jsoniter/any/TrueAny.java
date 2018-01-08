@@ -5,6 +5,11 @@ import com.jsoniter.output.JsonStream;
 
 import java.io.IOException;
 
+
+/**
+ * @author MaxiBon
+ *
+ */
 class TrueAny extends Any {
 	/**
 	 * public final static TrueAny INSTANCE = new TrueAny();
@@ -24,7 +29,7 @@ class TrueAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public Boolean object() {
 		return Boolean.TRUE;
 	}
 

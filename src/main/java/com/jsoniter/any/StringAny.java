@@ -41,7 +41,7 @@ class StringAny extends Any {
 	 * object
 	 */
 	@Override
-	public Object object() {
+	public String object() {
 		return val;
 	}
 

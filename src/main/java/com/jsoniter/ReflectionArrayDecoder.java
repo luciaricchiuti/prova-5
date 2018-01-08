@@ -71,7 +71,7 @@ class ReflectionArrayDecoder implements Decoder {
 		return newArr;
 	}
 	
-	Object subDecode(int i, JsonIterator iter) throws IOException {
+	private Object subDecode(int i, JsonIterator iter) throws IOException {
 		
 		Object a1 = compTypeDecoder.decode(iter);
 		Object a2 = compTypeDecoder.decode(iter);

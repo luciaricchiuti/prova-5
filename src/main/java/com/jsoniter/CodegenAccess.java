@@ -247,7 +247,7 @@ public class CodegenAccess {
 		 * @author MaxiBon
 		 *
 		 */
-		public String outputDir;
+		protected String outputDir;
 
 		public StaticCodegenTarget(String outputDir) {
 			this.outputDir = outputDir;

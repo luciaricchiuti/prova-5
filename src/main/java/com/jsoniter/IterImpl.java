@@ -286,7 +286,6 @@ class IterImpl {
 	 * 
 	 * @param isExpectingLowSurrogate
 	 * @param bc
-	 * @return
 	 */
 	private static void funReadStringSlowPathSupp(boolean isExpectingLowSurrogate, char bc, boolean iselsANDbH) {
 		boolean bool = isExpectingLowSurrogate;

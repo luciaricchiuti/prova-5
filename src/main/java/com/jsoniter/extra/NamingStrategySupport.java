@@ -43,7 +43,7 @@ public class NamingStrategySupport {
 	 * @author MaxiBon
 	 *
 	 */
-	public NamingStrategy kEBAB_CASE = new NamingStrategy() {
+	protected NamingStrategy kEBAB_CASE = new NamingStrategy() {
 		@Override
 		public String translate(String string) {
 			if (string == null) {
@@ -68,7 +68,7 @@ public class NamingStrategySupport {
 	 * @author MaxiBon
 	 *
 	 */
-	public static NamingStrategy SNAKE_CASE = new NamingStrategy() {
+	protected static NamingStrategy SNAKE_CASE = new NamingStrategy() {
 		@Override
 		public String translate(String inp) {
 			if (inp == null) {
@@ -85,7 +85,7 @@ public class NamingStrategySupport {
 	 * @author MaxiBon
 	 *
 	 */
-	public NamingStrategy upperCamelCase = new NamingStrategy() {
+	protected NamingStrategy upperCamelCase = new NamingStrategy() {
 		@Override
 		public String translate(String inpu) {
 			if (inpu == null || inpu.length() == 0) {
@@ -109,7 +109,7 @@ public class NamingStrategySupport {
 	 * @author MaxiBon
 	 *
 	 */
-	public NamingStrategy lowerCase = new NamingStrategy() {
+	protected NamingStrategy lowerCase = new NamingStrategy() {
 		@Override
 		public String translate(String input) {
 			return input.toLowerCase();

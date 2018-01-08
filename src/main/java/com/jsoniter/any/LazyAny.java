@@ -8,12 +8,27 @@ import com.jsoniter.output.JsonStream;
 import com.jsoniter.spi.TypeLiteral;
 
 import java.io.IOException;
-
+/**
+ * @author Maxibon
+ *
+ */
 abstract class LazyAny extends Any {
 
+	/**
+	 * data
+	 */
 	protected final byte[] data;
+	/**
+	 * head
+	 */
 	protected final int head;
+	/**
+	 * tail
+	 */
 	protected final int tail;
+	/**
+	 * string
+	 */
 	private final String err = "Error: IOException";
 
 	/**

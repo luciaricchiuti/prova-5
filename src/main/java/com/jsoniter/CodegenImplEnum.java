@@ -100,7 +100,6 @@ class CodegenImplEnum {
 	 * @param entry
 	 * @param i
 	 * @param b
-	 * @return
 	 */
 	private static void primo(StringBuilder lines, List<Byte> bTC, Map.Entry<Byte, Object> entry, int i, Byte b) {
 		append(lines, "if (");

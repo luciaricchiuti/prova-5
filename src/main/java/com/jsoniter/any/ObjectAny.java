@@ -32,7 +32,7 @@ class ObjectAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public Map<String, Any> object() {
 		return val;
 	}
 

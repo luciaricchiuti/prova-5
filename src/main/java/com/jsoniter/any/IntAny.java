@@ -29,7 +29,7 @@ class IntAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public Integer object() {
 		return val;
 	}
 

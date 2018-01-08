@@ -44,27 +44,27 @@ class IterImplNumber {
 	}
 
 	/**
-	 * 
+	 * INT DIGITS
 	 */
 	final static int[] intDigits = new int[127];
 	/**
-	 * 
+	 * FLOAT
 	 */
 	final static int[] floatDigits = new int[127];
 	/**
-	 * 
+	 * END
 	 */
 	final static int END_OF_NUMBER = -2;
 	/**
-	 * 
+	 * DOT
 	 */
 	final static int DOT_IN_NUMBER = -3;
 	/**
-	 * 
+	 * INVALID
 	 */
 	final static int INVALID_CHAR_FOR_NUMBER = -1;
 	/**
-	* 
+	* POW
 	*/
 	static final long[] POW10 = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000,
 			10000000000L, 100000000000L, 1000000000000L, 10000000000000L, 100000000000000L, 1000000000000000L };

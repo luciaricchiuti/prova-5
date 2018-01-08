@@ -50,7 +50,7 @@ class StringLazyAny extends LazyAny {
 	 * object
 	 */
 	@Override
-	public Object object() {
+	public String object() {
 		fillCache();
 		return cache;
 	}

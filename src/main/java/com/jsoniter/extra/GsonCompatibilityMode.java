@@ -139,8 +139,17 @@ public class GsonCompatibilityMode extends Config {
 				 * LocalDateTime dateTime
 				 */
 				int y = 2014;
+				/**
+				 * day
+				 */
 				int d = 1;
+				/**
+				 * hour
+				 */
 				int h = 10;
+				/**
+				 * minute
+				 */
 				int m = 45;
 				LocalDateTime dateTime = LocalDateTime.of(y, java.time.Month.APRIL, d, h, m);
 				// format as ISO week date (2014-W08-4)

@@ -14,6 +14,9 @@ import java.util.Arrays;
  */
 class NotFoundAny extends Any {
 
+	/**
+	 * eccezione
+	 */
 	protected final JsonException exception;
 
 	/**
@@ -44,7 +47,7 @@ class NotFoundAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public JsonException object() {
 		throw exception;
 	}
 

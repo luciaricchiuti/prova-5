@@ -45,7 +45,7 @@ class IterImplString {
 	}
 
 	/**
-	 * 
+	 * HEXDIGITS
 	 */
 	final static int[] hexDigits = new int['f' + 1];
 

@@ -104,7 +104,6 @@ class CodegenImplObjectStrict {
 	 * 
 	 * @param desc
 	 * @param lines
-	 * @return
 	 */
 	private static void secondo(ClassDescriptor desc, StringBuilder lines) {
 		String temp = "";
@@ -131,7 +130,6 @@ class CodegenImplObjectStrict {
 	 * @param rendered
 	 * @param hasRequiredBinding
 	 * @param expectedTracker
-	 * @return
 	 */
 	private static void multipleAppend(List<Binding> allBindings, ClassDescriptor desc, StringBuilder lines,
 			String rendered, boolean hasRequiredBinding, long expectedTracker) {
@@ -197,7 +195,6 @@ class CodegenImplObjectStrict {
 	 * @param b
 	 * @param l
 	 * @param m
-	 * @return
 	 */
 	private static void terzo(List<Binding> bin, ClassDescriptor cD, StringBuilder lines, boolean b, long l,
 			Map<Integer, Object> m) {
@@ -517,7 +514,6 @@ class CodegenImplObjectStrict {
 	 * 
 	 * @param entry
 	 * @param lines
-	 * @return
 	 */
 	private static void quarto(Map.Entry<Byte, Object> entry, StringBuilder lines) {
 		Binding field = null;
@@ -552,7 +548,6 @@ class CodegenImplObjectStrict {
 	 * @param bytesToCompare
 	 * @param entry
 	 * @param b
-	 * @return
 	 */
 	private static void settimo(int i, int len, StringBuilder lines, List<Byte> bytesToCompare,
 			Map.Entry<Byte, Object> entry, Byte b) {
@@ -579,7 +574,6 @@ class CodegenImplObjectStrict {
 	 * @param bytesToCompare
 	 * @param b
 	 * @param next
-	 * @return
 	 */
 	private static void ottavo(StringBuilder lines, int i, int len, List<Byte> bytesToCompare, Byte b,
 			Map<Byte, Object> next){

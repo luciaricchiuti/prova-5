@@ -43,7 +43,7 @@ class ArrayLazyAny extends LazyAny {
 	}
 
 	@Override
-	public Object object() {
+	public List<Any> object() {
 		fillCache();
 		return cache;
 	}

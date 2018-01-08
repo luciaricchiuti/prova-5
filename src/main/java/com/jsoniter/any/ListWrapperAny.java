@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * @author Maxibon
+ *
+ */
 class ListWrapperAny extends Any {
 
 	private final List val;
@@ -28,7 +31,7 @@ class ListWrapperAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public List<Any> object() {
 		fillCache();
 		return cache;
 	}

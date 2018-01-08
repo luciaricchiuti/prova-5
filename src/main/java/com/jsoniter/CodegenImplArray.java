@@ -16,6 +16,9 @@ import com.jsoniter.spi.ClassInfo;
  */
 class CodegenImplArray {
 
+	/**
+	 * constructor
+	 */
 	private CodegenImplArray() {
 	}
 
@@ -23,15 +26,41 @@ class CodegenImplArray {
 	 * parentesi1
 	 */
 	static final String PARENTESI= "}";
+	/**
+	 * stringaif
+	 */
 	static final String STRINGAIF = "if (!com.jsoniter.CodegenAccess.nextTokenIsComma(iter)) {";
+	/**
+	 * sdnasdj
+	 */
 	final static String STRINGA = "{{clazz}} obj = col == null ? new {{clazz}}(): ({{clazz}})com.jsoniter.CodegenAccess.reuseCollection(col);";
+	/**
+	 * sdnasdj
+	 */
 	static final String OBJ3 = "obj.add(a3);";
+	/**
+	 * sdnasdj
+	 */
 	final static String OBJ2 = "obj.add(a2);";
+	/**
+	 * sdnasdj
+	 */
 	final static String OBJ1 = "obj.add(a1);";
+	/**
+	 * sdnasdj
+	 */
 	final static String OBJ4 = "obj.add(a4);";
+	/**
+	 * sdnasdj
+	 */
 	final static String RETURNOBJ = "return obj;";
+	/**
+	 * sdnasdj
+	 */
 	final static String STRINGAIF2 = "if (com.jsoniter.CodegenAccess.nextToken(iter) != ',') {";
-	
+	/**
+	 * sdnasdj
+	 */
 	private final static int SBSIZE = 128;
 	/**
 	 * static Set<Class> WITH_CAPACITY_COLLECTION_CLASSES

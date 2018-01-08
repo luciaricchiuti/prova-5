@@ -31,7 +31,7 @@ class ArrayAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public List<Any> object() {
 		return val;
 	}
 

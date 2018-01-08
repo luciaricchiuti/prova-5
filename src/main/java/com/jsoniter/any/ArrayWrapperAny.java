@@ -8,7 +8,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * @author Maxibon
+ *
+ */
 class ArrayWrapperAny extends Any {
 
 	private final Object val;
@@ -29,7 +32,7 @@ class ArrayWrapperAny extends Any {
 	}
 
 	@Override
-	public Object object() {
+	public List<Any> object() {
 		fillCache();
 		return cache;
 	}
