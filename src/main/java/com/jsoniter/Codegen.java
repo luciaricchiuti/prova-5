@@ -98,7 +98,7 @@ class Codegen {
 	 * @param decoder
 	 * @param classInfo
 	 * @param mode
-	 * 
+	 * @return
 	 */
 	private static void genSupport(Decoder decoder, ClassInfo classInfo, DecodingMode mode) {
 		if (mode == DecodingMode.REFLECTION_MODE) {
@@ -111,7 +111,7 @@ class Codegen {
 	 * @param decoder
 	 * @param cacheKey
 	 * @param mode
-	 * 
+	 * @return
 	 */
 	private static void genSupport(Decoder decoder, String cacheKey, DecodingMode mode) {
 		if (isDoingStaticCodegen.outputDir == "") {
